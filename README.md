@@ -68,7 +68,7 @@ Once management IP and SSH are configured using the Python scripts, use Ansible 
 
 ### ▶️ How to Run:
 
-1. Make sure SSH is enabled and reachable (verify via `ssh user@device_ip`).
+1. Make sure SSH is enabled and reachable (verify via `ssh user@device_ip`, or application like putty).
 2. Adjust `hosts` file with correct IPs and credentials.
 3. Set desired features in `variables.yaml`:
    ```yaml
@@ -80,7 +80,7 @@ Once management IP and SSH are configured using the Python scripts, use Ansible 
    ```
 4. Run the playbook:
    ```bash
-   ansible-playbook -i hosts main.yaml
+   ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook main.yaml -i hosts
    ```
 
 ---
@@ -96,22 +96,18 @@ Once management IP and SSH are configured using the Python scripts, use Ansible 
 
 ---
 
-## 📸 Screenshots
-
-Screenshots included in the `/Python` folder document successful execution and results.
-
----
-
 ## ⚠️ Notes
 
 - All default usernames/passwords are `cisco`. Change them in `*_vars.py` and `variables.yaml` before production use.
 - Requires Python packages: `netmiko`, `pyserial`
 - Ansible must be installed (`pip install ansible`)
 - Tested against Cisco IOS devices in GNS3 and Packet Tracer.
+- Known error with python script on the routers (look screenshot in python folder), if you get this error keep running the script until you dont. (Error is caused by crypto key generate taking more than 1 second to generate)
+- If the python script still isnt working, try manually entering the com port and enter enable mode then close the com and try again. (Netmiko is sensetive on where it is on the device)
 
 ---
 
 ## 🧑‍💻 Author
 
-Created by [Your Name Here]  
+Created by Aolian 
 As part of Arbeidskrav 4 – Automatisering, 2nd Year ITD
