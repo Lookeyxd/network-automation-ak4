@@ -1,0 +1,22 @@
+# interfaces.yaml - Configure interface IP addresses for each router
+- name: Configure IP on {{ item.name }}
+  ios_config:
+    lines:
+      - ip address {{ item.ip }} {{ item.mask }}
+      - no shutdown
+    parents: interface {{ item.name }}
+  loop: "{{ interfaces[inventory_hostname] }}"
+  loop_control:
+    label: "{{ item.name }}"
+
+
+
+
+
+
+
+
+
+
+
+

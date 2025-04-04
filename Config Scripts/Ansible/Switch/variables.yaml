@@ -1,0 +1,15 @@
+enable_etherchannel: true
+
+etherchannel_ports:
+  - FastEthernet0/21
+  - FastEthernet0/22
+
+etherchannel_group: 1
+etherchannel_speed: "100"
+etherchannel_duplex: "full"
+
+access_ports:
+  - interface: FastEthernet0/2
+    vlan: 11
+  - interface: FastEthernet0/3
+    vlan: 13

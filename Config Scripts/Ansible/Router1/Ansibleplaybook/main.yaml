@@ -1,0 +1,25 @@
+# main.yaml - Primary playbook that includes all configuration tasks
+- name: Deploy base configuration to Cisco routers
+  hosts: routers
+  gather_facts: no  # Skip collecting facts on network devices
+  vars_files:
+    - variables.yaml  # Load interface IPs, OSPF toggle, and HSRP settings
+
+  tasks:
+    - name: Configure interface IP addresses
+      include_tasks: interfaces.yaml
+      when: configure_interfaces | default(true)
+
+    - name: Configure OSPF (area 0 on all interfaces)
+      include_tasks: ospf.yaml
+      when: configure_ospf | default(true)
+
+    - name: Configure HSRP on primary interface
+      include_tasks: hsrp.yaml
+      when: configure_hsrp | default(false)
+
+    - name: Configure DHCP
+      include_tasks: dhcp.yaml
+      when: configure_dhcp | default(true)
+
+

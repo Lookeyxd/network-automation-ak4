@@ -1,0 +1,25 @@
+- name: Configure EtherChannel member interfaces
+  ios_config:
+    lines:
+      - switchport mode trunk
+      - switchport trunk allowed vlan 10-13
+      - speed {{ etherchannel_speed }}
+      - duplex {{ etherchannel_duplex }}
+      - channel-group {{ etherchannel_group }} mode active
+      - no shutdown
+    parents: "interface {{ item }}"
+  loop: "{{ etherchannel_ports }}"
+  loop_control:
+    label: "{{ item }}"
+  tags: etherchannel
+
+- name: Configure Port-Channel interface
+  ios_config:
+    lines:
+      - switchport mode trunk
+      - switchport trunk allowed vlan 10-13
+      - description EtherChannel {{ etherchannel_group }}
+      - no shutdown
+    parents: "interface Port-Channel{{ etherchannel_group }}"
+  tags: etherchannel
+

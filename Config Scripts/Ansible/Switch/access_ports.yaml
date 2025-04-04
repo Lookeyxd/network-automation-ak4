@@ -1,0 +1,11 @@
+- name: Configure access ports
+  ios_config:
+    lines:
+      - switchport mode access
+      - switchport access vlan {{ item.vlan }}
+      - no shutdown
+    parents: "interface {{ item.interface }}"
+  loop: "{{ access_ports }}"
+  loop_control:
+    label: "{{ item.interface }}"
+

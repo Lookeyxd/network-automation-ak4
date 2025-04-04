@@ -1,0 +1,15 @@
+---
+- name: Configure DHCP excluded addresses
+  ios_config:
+    lines:
+      - "ip dhcp excluded-address {{ item }}"
+  loop: "{{ dhcp_settings.excluded_ips }}"
+
+- name: Configure DHCP pool for {{ dhcp_settings.pool_name }}
+  ios_config:
+    lines:
+      - "ip dhcp pool {{ dhcp_settings.pool_name }}"
+      - "network {{ dhcp_settings.network }} {{ dhcp_settings.netmask }}"
+      - "default-router {{ dhcp_settings.default_router }}"
+      - "dns-server {{ dhcp_settings.dns_server }}"
+

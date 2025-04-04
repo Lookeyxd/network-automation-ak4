@@ -1,0 +1,13 @@
+# hsrp.yaml - Configure HSRP on subinterface GigabitEthernet0/0.11
+- name: Configure HSRP on subinterface GigabitEthernet0/0.11
+  ios_config:
+    lines:
+      - encapsulation dot1Q 11
+      - ip address {{ hsrp_interface_ip[inventory_hostname] }} 255.255.255.0
+      - standby {{ hsrp_group }} ip {{ hsrp_virtual_ip }}
+      - standby {{ hsrp_group }} priority {{ hsrp_priorities[inventory_hostname] }}
+      - standby {{ hsrp_group }} preempt
+      - no shutdown
+    parents: interface GigabitEthernet0/0.11
+
+

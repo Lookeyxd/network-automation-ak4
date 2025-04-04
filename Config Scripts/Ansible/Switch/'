@@ -1,0 +1,10 @@
+enable_etherchannel: true
+
+etherchannel_ports:
+  - Fastethernet0/21
+  - Fastethernet0/22
+
+etherchannel_group: 1
+etherchannel_speed: "1000"
+etherchannel_duplex: "full"
+

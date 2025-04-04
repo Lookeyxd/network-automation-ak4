@@ -1,0 +1,56 @@
+# variables.yaml - Variables for interfaces, OSPF, and HSRP
+# Toggle specific configurations on/off
+configure_interfaces: true
+configure_ospf: true
+configure_hsrp: true
+
+interfaces:
+  router1:
+    - name: GigabitEthernet0/0.11
+      ip: 192.168.11.253
+      mask: 255.255.255.0
+      wildmask: 0.0.0.255
+      network: 192.168.11.0
+    - name: GigabitEthernet0/1
+      ip: 10.20.0.2
+      mask: 255.255.255.252
+      wildmask: 0.0.0.3
+      network: 10.20.0.0
+    - name: GigabitEthernet0/0
+      ip: 10.30.0.2
+      mask: 255.255.255.252
+      wildmask: 0.0.0.3
+      network: 10.30.0.0
+
+# HSRP configuration for subinterface Gi0/0.11
+hsrp_group: 11
+hsrp_virtual_ip: 192.168.11.1
+
+# IP assigned to each router's subinterface
+hsrp_interface_ip:
+  router1: 192.168.11.253
+
+# HSRP priorities (higher = active)
+hsrp_priorities:
+  router1: 120
+
+# DHCP settings for VLAN 11
+configure_dhcp: true
+
+dhcp_settings:
+  pool_name: VLAN11
+  network: 192.168.11.0
+  netmask: 255.255.255.0
+  default_router: 192.168.11.1  # HSRP VIP
+  dns_server: 8.8.8.8
+  excluded_ips:
+    - 192.168.11.1
+    - 192.168.11.254
+
+
+
+
+
+
+
+

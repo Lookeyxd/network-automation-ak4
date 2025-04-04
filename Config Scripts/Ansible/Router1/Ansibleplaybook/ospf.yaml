@@ -1,0 +1,12 @@
+# ospf.yaml - Use correct subnet addresses
+- name: Advertise subnets in OSPF
+  ios_config:
+    lines:
+      - network {{ item.network }} {{ item.wildmask }} area 0
+    parents: router ospf 1
+  loop: "{{ interfaces[inventory_hostname] }}"
+  loop_control:
+    label: "{{ item.name }}"
+
+
+

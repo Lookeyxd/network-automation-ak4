@@ -1,0 +1,15 @@
+- name: Configure EtherChannel on switch
+  hosts: switch
+  gather_facts: no
+  vars_files:
+    - variables.yaml
+
+  tasks:
+    - name: Configure EtherChannel if enabled
+      import_tasks: etherchannel.yaml
+      when: enable_etherchannel | bool
+
+    - name: Configure access ports
+      import_tasks: access_ports.yaml
+      when: access_ports is defined
+
